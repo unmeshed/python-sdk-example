@@ -48,7 +48,7 @@ def upload_file(client: UnmeshedClient) -> None:
         # Upload the file
         upload_file_response: UploadFileResponse = client.upload_file(
             file_path=tmp_file_path,
-            folder_path="/test-pysdk/folder1", ## ensure parent directory (test-pysdk) exists
+            folder_path="/test-pysdk/folder1",
             custom_file_name=sample_upload_name
         )
         logger.info("Upload file response: %s", upload_file_response.to_json())
