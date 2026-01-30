@@ -11,6 +11,7 @@ from unmeshed.sdk.common.download_file_request import DownloadFileRequest
 from unmeshed.sdk.common.list_files_request import ListFilesRequest
 from unmeshed.sdk.common.list_files_response import ListFilesResponse
 from unmeshed.sdk.common.upload_file_response import UploadFileResponse
+from unmeshed.sdk.common.upload_folder_request import UploadFolderRequest
 from unmeshed.sdk.configs.client_config import ClientConfig
 from unmeshed.sdk.unmeshed_client import UnmeshedClient, logger
 
@@ -24,6 +25,11 @@ def get_client() -> UnmeshedClient:
         client_config.set_port(int(port))
     client_config.set_enable_results_submission(False) ## Disable Polling
     return UnmeshedClient(client_config)
+
+def upload_folder(client : UnmeshedClient) -> None:
+    upload_folder_response = client.upload_folder(UploadFolderRequest(folderPath="/abc/pqr"))
+    logger.info("Upload folder response: %s", upload_folder_response)
+
 
 def view_files_tests(client : UnmeshedClient) -> None:
     list_files_request = ListFilesRequest(path="/") ## this should be any valid folder path
@@ -91,7 +97,7 @@ def delete_file_or_folder(client):
 
 def main():
     client = get_client()
-
+    upload_folder(client)
     upload_file(client)
     view_files_tests(client)
     download_file(client)
